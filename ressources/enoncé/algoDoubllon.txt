@@ -1,0 +1,6 @@
+Créér un Algo permettant à la création d'un objet 
+de vérifier que cette objet n'existe pas déja dans un fichier.
+
+pour cela on vérifiera par exemple
+ pour l'objet client que le nom et l'email renseigné ne sont pas les mêmes 
+ (du nouvel objet a l'objet créer dans le fichier)
