@@ -3,3 +3,9 @@ soit en générant un chiffre et en vérifiant qu'il n'existe pas
 soit essayer de voler la méthode de Valentin: vérifier si des objets existent déja , incrémenter de 1 à partir de là
 
 format "000"
+strlengthagence = 3;
+
+idagence= 000
+idagence = idagence++
+
+idagence=substr(000{idagence}", -strlengthagence);
