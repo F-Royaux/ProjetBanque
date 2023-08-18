@@ -1,0 +1,3 @@
+Algo permettant de générer un ID pour lobjet client, qu'aucun autre objet ne posséde
+ en générant deux lettres aléatoirement puis 6 chiffres aléatoire 
+ vérifier que l'id n'existe pas

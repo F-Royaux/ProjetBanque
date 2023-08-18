@@ -1,0 +1,5 @@
+Algo permettant de générer un ID pour l'agence, que aucun autre objet ne posséde
+soit en générant un chiffre et en vérifiant qu'il n'existe pas
+soit essayer de voler la méthode de Valentin: vérifier si des objets existent déja , incrémenter de 1 à partir de là
+
+format "000"
