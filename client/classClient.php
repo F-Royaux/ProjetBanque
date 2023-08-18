@@ -10,7 +10,7 @@ class Client
 
     /**
      * Get the value of Idclient
-     */ 
+     */
     public function getIdclient()
     {
         return $this->Idclient;
@@ -30,7 +30,7 @@ class Client
 
     /**
      * Get the value of nom
-     */ 
+     */
     public function getNom()
     {
         return $this->nom;
@@ -40,10 +40,10 @@ class Client
      * Set the value of nom
      *
      * @return  self
-     */ 
+     */
     public function setNom()
     {
-        $nom= readline("Votre nom:");
+        $nom = readline("Votre nom:");
         $this->nom = $nom;
 
         return $this;
@@ -51,7 +51,7 @@ class Client
 
     /**
      * Get the value of prenom
-     */ 
+     */
     public function getPrenom()
     {
         return $this->prenom;
@@ -61,10 +61,10 @@ class Client
      * Set the value of prenom
      *
      * @return  self
-     */ 
+     */
     public function setPrenom()
     {
-        $prenom=readline("Votre prénom: ");
+        $prenom = readline("Votre prénom: ");
         $this->prenom = $prenom;
 
         return $this;
@@ -72,7 +72,7 @@ class Client
 
     /**
      * Get the value of dateNaissance
-     */ 
+     */
     public function getDateNaissance()
     {
         return $this->dateNaissance;
@@ -82,10 +82,10 @@ class Client
      * Set the value of dateNaissance
      *
      * @return  self
-     */ 
+     */
     public function setDateNaissance()
     {
-        $dateNaissance= intval(readline("votre date de naissance: "));
+        $dateNaissance = intval(readline("votre date de naissance: "));
         $this->dateNaissance = $dateNaissance;
 
 
@@ -94,7 +94,7 @@ class Client
 
     /**
      * Get the value of mail
-     */ 
+     */
     public function getMail()
     {
         return $this->mail;
@@ -104,7 +104,7 @@ class Client
      * Set the value of mail
      *
      * @return  self
-     */ 
+     */
     public function setMail()
     {
         $mail = readline("Votre mail: ");
@@ -112,6 +112,4 @@ class Client
 
         return $this;
     }
-
-
 }

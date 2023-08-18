@@ -9,6 +9,19 @@ class Agence
     private int $CodePostalAgence;
     private string $VilleAgence;
 
+    public function pushAdresse()
+    {
+        $this->Adresse[] = $this->NumeroRueAdresse;
+        $this->Adresse[] = $this->CodePostalAgence;
+        $this->Adresse[] = $this->VilleAgence;
+        return $this;
+
+        //A tester
+        // $this->Adresse[] = readline("Saisir le numéro et la rue de l'agence : ");
+        // $this->Adresse[] = readline("Saisir le code postal de l'agence : ");
+        // $this->Adresse[] =  readline("Saisir la ville de l'agence : ");
+        // return $this;
+    }
     /**
      * Get the value of NomAgence
      *
@@ -50,9 +63,9 @@ class Agence
      *
      * @return self
      */
-    public function setAdresse(string $Adresse): self
+    public function setAdresse(array $Adresse): self
     {
-        $this->Adresse = $Adresse;
+        $this->Adresse[] = $Adresse;
 
         return $this;
     }
@@ -153,11 +166,3 @@ class Agence
         return $this;
     }
 }
-$agence = new Agence;
-$agence->setNomAgence();
-$agence->setNumeroRueAdresse();
-$agence->setCodePostalAgence();
-$agence->setVilleAgence();
-
-
-var_dump($agence);
