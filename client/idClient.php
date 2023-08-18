@@ -1,7 +1,5 @@
 <?php
 
-$strLenghtNb = 6;
-
 $n=2;
 function getName($n) {
     $characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -16,8 +14,10 @@ function getName($n) {
 }
 
 $idCliLet = getName($n);
-
+$strLengthNb = 6;
 $randNb = random_int(0, 999999);
+$randNb = substr("000000{$randNb}", -$strLengthNb);
+
 $idCliNb = strval($randNb);
 
 $idClient = $idCliLet . $idCliNb;
