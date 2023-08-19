@@ -1,0 +1,17 @@
+ICI un lien qui parle des différente facon de faire une recherche dans un tableau d'objet
+https://stackoverflow.com/questions/7106772/most-efficient-way-to-search-for-object-in-an-array-by-a-specific-propertys-val/7106812#7106812
+
+
+recherche par itération:
+
+function findObjectById($id){
+    $array = array( /* your array of objects */ );
+
+    foreach ( $array as $element ) {
+        if ( $id == $element->id ) {
+            return $element;
+        }
+    }
+
+    return false;
+}

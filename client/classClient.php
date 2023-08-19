@@ -85,7 +85,9 @@ class Client
      */
     public function setDateNaissance()
     {
-        $dateNaissance = intval(readline("votre date de naissance: "));
+
+
+        $dateNaissance = intval(readline("votre date de naissance, (format 31/12/2000) : "));
         $this->dateNaissance = $dateNaissance;
 
 
