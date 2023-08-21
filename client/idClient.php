@@ -1,25 +1,29 @@
 <?php
 
-$n=2;
-function getName($n) {
-    $characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    $randLet = "";
- 
-    for ($i = 0; $i < $n; $i++) {
-        $index = rand(0, strlen($characters) - 1);
-        $randLet .= $characters[$index];
+function createIdClient()
+{
+    function createMaj()
+    {
+        $characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $randLet = "";
+
+        for ($i = 0; $i < 2; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randLet .= $characters[$index];
+        }
+
+        return $randLet;
     }
- 
-    return $randLet;
+
+    $idCliLet = createMaj();
+    $strLengthNb = 6;
+    $randNb = random_int(0, 999999);
+    $randNb = substr("000000{$randNb}", -$strLengthNb);
+
+    $idCliNb = strval($randNb);
+
+    $idClient = $idCliLet . $idCliNb;
+
+    return $idClient;
+    
 }
-
-$idCliLet = getName($n);
-$strLengthNb = 6;
-$randNb = random_int(0, 999999);
-$randNb = substr("000000{$randNb}", -$strLengthNb);
-
-$idCliNb = strval($randNb);
-
-$idClient = $idCliLet . $idCliNb;
-
-echo $idClient;

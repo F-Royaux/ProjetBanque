@@ -1,32 +1,33 @@
 <?php
 class Client
 {
-    private string $Idclient;
+
     private string $nom;
     private string $prenom;
     private int $dateNaissance;
     private string $mail;
+    private string $IdClient;
 
 
     /**
-     * Get the value of Idclient
+     * Get the value of IdClient
      */
-    public function getIdclient()
+    public function getIdClient(): string
     {
-        return $this->Idclient;
+        return $this->IdClient;
     }
 
     // /** Ici en attente de la méthode
-    //  * Set the value of Idclient
+    //  * Set the value of IdClient
     //  *
     //  * @return  self
     //  */ 
-    // public function setIdclient($Idclient)
-    // {
-    //     $this->Idclient = $Idclient;
+    public function setIdClient(): self
+    {
+        $this->IdClient = $this->createIdClient();
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     /**
      * Get the value of nom
@@ -114,4 +115,30 @@ class Client
 
         return $this;
     }
+
+    public function createIdClient()
+    {
+        $characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $randLet = "";
+
+        for ($i = 0; $i < 2; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randLet .= $characters[$index];
+        }
+        $idCliLet = $randLet;
+        $strLengthNb = 6;
+        $randNb = random_int(0, 999999);
+        $randNb = substr("000000{$randNb}", -$strLengthNb);
+
+        $idCliNb = strval($randNb);
+
+        $IdClient = $idCliLet . $idCliNb;
+
+        return $IdClient;
+    }
 }
+
+// $Client = new Client;
+
+// $Client->setIdClient();
+// print_r($Client);
