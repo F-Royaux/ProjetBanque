@@ -4,7 +4,7 @@ class Client
 
     private string $nom;
     private string $prenom;
-    private int $dateNaissance;
+    private string $dateNaissance;
     private string $mail;
     private string $IdClient;
 
@@ -135,6 +135,25 @@ class Client
         $IdClient = $idCliLet . $idCliNb;
 
         return $IdClient;
+    }
+    //à tester
+    public function researchClientByID()
+    {
+        $Idclient = $this->IdClient;
+        $value = intval(readline("Veuillez saisir l'ID client': "));
+        $fileName = "./sauv/client.csv";
+        $array = FileToArray($fileName);
+        $objet = Research($array, $value, $Idclient);
+        return $objet;
+    }
+    public function researchClientByName()
+    {
+        $Name = $this->getNom();
+        $value = intval(readline("Veuillez saisir l'ID client': "));
+        $fileName = "./sauv/client.csv";
+        $array = FileToArray($fileName);
+        $objet = Research($array, $value, $Name);
+        return $objet;
     }
 }
 
