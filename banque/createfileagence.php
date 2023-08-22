@@ -1,6 +1,6 @@
 <?php
 
-include("./classAgence.php");
+include("../banque/classAgence.php");
 require_once("../lib/function.php");
 $numero = [];
 
@@ -12,7 +12,7 @@ $agence->setAdresse();
 // $agence->setVilleAgence();
 // $agence->pushAdresse($numero);
 
-$fileName = "./sauv/agence.csv";
+$fileName = "../banque/sauv/agence.csv";
 $header = array("Nom", "Adresse");
 
 createFile($agence, $fileName, $header);

@@ -2,11 +2,11 @@
 class Client
 {
 
+    private string $IdClient;
     private string $nom;
     private string $prenom;
     private string $dateNaissance;
     private string $mail;
-    private string $IdClient;
 
 
     /**
@@ -44,7 +44,7 @@ class Client
      */
     public function setNom()
     {
-        $nom = readline("Votre nom:");
+        $nom = readline("Votre nom: ");
         $this->nom = $nom;
 
         return $this;
@@ -88,7 +88,7 @@ class Client
     {
 
 
-        $dateNaissance = intval(readline("votre date de naissance, (format 31/12/2000) : "));
+        $dateNaissance = readline("votre date de naissance, (format 31/12/2000) : ");
         $this->dateNaissance = $dateNaissance;
 
 
