@@ -1,7 +1,7 @@
 <?php
 
 include("./classAgence.php");
-
+require_once("../lib/function.php");
 $numero = [];
 
 $agence = new Agence;
@@ -14,19 +14,5 @@ $agence->setAdresse();
 
 $fileName = "./sauv/agence.csv";
 $header = array("Nom", "Adresse");
-
-function createFile($client, $fileName, $header)
-{
-
-    if (!file_exists($fileName)) {
-        $fp = fopen($fileName, "a");
-        fputcsv($fp, $header);
-        fclose($fp);
-    }
-    $fp = fopen($fileName, "a");
-
-    fputcsv($fp, (array) $client);
-    fclose($fp);
-}
 
 createFile($agence, $fileName, $header);

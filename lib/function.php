@@ -1,6 +1,21 @@
 <?php
 
 
+//fonction de Frank pour ouvrir un fichier
+function createFile($objet, $fileName, $header)
+{
+
+    if (!file_exists($fileName)) {
+        $fp = fopen($fileName, "a");
+        fputcsv($fp, $header);
+        fclose($fp);
+    }
+    $fp = fopen($fileName, "a");
+
+    fputcsv($fp, (array) $objet);
+    fclose($fp);
+}
+
 // fuction pour passer un .csv dans un tableau;; reste à vérifier avec plusieurs objets
 function FileToArray($fileName)
 {
