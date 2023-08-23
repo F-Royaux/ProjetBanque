@@ -136,25 +136,25 @@ class Client
 
         return $IdClient;
     }
-    //à tester
-    public function researchClientByID()
-    {
-        $Idclient = $this->IdClient;
-        $value = intval(readline("Veuillez saisir l'ID client': "));
-        $fileName = "./sauv/client.csv";
-        $array = FileToArray($fileName);
-        $objet = Research($array, $value, $Idclient);
-        return $objet;
-    }
-    public function researchClientByName()
-    {
-        $Name = $this->getNom();
-        $value = intval(readline("Veuillez saisir l'ID client': "));
-        $fileName = "./sauv/client.csv";
-        $array = FileToArray($fileName);
-        $objet = Research($array, $value, $Name);
-        return $objet;
-    }
+    //function obsolète
+    // public function researchClientByID()
+    // {
+    //     // $Idclient = $this->IdClient;
+    //     $value = intval(readline("Veuillez saisir l'ID client': "));
+    //     $fileName = "./sauv/client.csv";
+    //     $array = FileToArray($fileName);
+    //     $objet = researchInArray($value, $array);
+    //     return $objet;
+    // }
+    // public function researchClientByName()
+    // {
+    //     // $name = $this->getNom();
+    //     $value = intval(readline("Veuillez saisir l'ID client': "));
+    //     $fileName = "./sauv/client.csv";
+    //     $array = FileToArray($fileName);
+    //     $objet = researchInArray($value, $array);
+    //     return $objet;
+    // }
 }
 
 // $Client = new Client;
