@@ -1,4 +1,6 @@
 <?php
+
+include_once("..//lib/function.php");
 class Client
 {
 
@@ -116,7 +118,7 @@ class Client
         return $this;
     }
 
-    public function createIdClient()
+    public static function createIdClient()
     {
         $characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $randLet = "";
@@ -136,16 +138,30 @@ class Client
 
         return $IdClient;
     }
+
+
+    //si on demande une valeur qui existe plusieurs fois on aura que le premier objet qui le contient
+ public static function researchClientByUniqueValue()
+    {
+        $value = readline("Veuillez saisir l'ID client': ");
+        $fileName = "./sauv/client.csv";
+        csvToArray($arrayIn, $fileName);
+        var_dump($arrayIn);
+        $var = researchInArray($value, $arrayIn);
+        var_dump( $var);
+    }
+
+    public static function researchClientByMoreValue()
+    {
+        $value = readline("Veuillez saisir nimporte quoi concernant le client': ");
+        $fileName = "./sauv/client.csv";
+        csvToArray($arrayIn, $fileName);
+        var_dump($arrayIn);
+        researchInArrayAndFindArray($contextualArray , $value , $arrayIn);
+        var_dump( $contextualArray); 
+    }
+
     //function obsolète
-    // public function researchClientByID()
-    // {
-    //     // $Idclient = $this->IdClient;
-    //     $value = intval(readline("Veuillez saisir l'ID client': "));
-    //     $fileName = "./sauv/client.csv";
-    //     $array = FileToArray($fileName);
-    //     $objet = researchInArray($value, $array);
-    //     return $objet;
-    // }
     // public function researchClientByName()
     // {
     //     // $name = $this->getNom();
@@ -157,7 +173,5 @@ class Client
     // }
 }
 
-// $Client = new Client;
 
-// $Client->setIdClient();
-// print_r($Client);
+Client::researchClientByUniqueValue();

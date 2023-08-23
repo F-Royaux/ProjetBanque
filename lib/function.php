@@ -17,19 +17,37 @@ function createFile($objet, $fileName, $header)
 }
 
 // fuction pour passer un .csv dans un tableau;; reste à vérifier avec plusieurs objets
-function FileToArray($fileName)
-{
-    $fp = fopen($fileName, "r");
-    while (!feof($fp) ) {
-        $lines[] = fgetcsv($fp);
-    }
-    fclose($fp);
-   return $lines;
-}
+//utiliser l'autre fonction à partir de maintenant
+// function FileToArray($fileName)
+// {
+//     $fp = fopen($fileName, "r");
+//     while (!feof($fp) ) {
+//         $lines[] = fgetcsv($fp);
+//     }
+//     fclose($fp);
+//    return $lines;
+// }
 
 // $csv=FileToArray($fileName);
 
+//la function a christope !!j'ai du enlevé le 3éme argument qui embêtait
+function csvToArray(&$donnees, $filename = '')
+{
+    if (!file_exists($filename) || !is_readable($filename))
+        return FALSE;
 
+    $header = NULL;
+    $donnees = array();
+    if (($handle = fopen($filename, 'r')) !== FALSE) {
+        while (($row = fgetcsv($handle, 1000, ',')) !== FALSE) {
+            if (!$header)
+                $header = $row;
+            else
+                $donnees[] = array_combine($header, $row);
+        }
+        fclose($handle);
+    }
+}
 
 
 //la function research dans une version globale et adaptable
@@ -37,24 +55,34 @@ function FileToArray($fileName)
 //si la fonction ne marche pas il faudra faire plusieurs méthode en foncion de ce qu'on recherche (voir ressources)
 
 
-//comportement attendu: retourne l'objet si la propriété voulue est trouvée sinon retourne "false"
-function researchInArray($valeurRecherche, $grosTabQuiVientDuCsv) {
+//comportement attendu: retourne le premier objet qui contient la valeur cherché 
+//attention ne l'utiliser que sur des valeurs uniques!
+function researchInArray($valeurRecherche, $grosTabQuiVientDuCsv)
+{
     //$valeurRecherche la valeur qu'on recherche par exemple ($valeurRecherche = "Gertrude")
     //$grosTabQuiVientDuCsv c'est le tableau qu'on a appelé avant avec une fonction de lecture
     foreach ($grosTabQuiVientDuCsv as $array) {
         foreach ($array as $value) {
-            if ($valeurRecherche == $value){
-                return $array ;
-            }
+            if ($valeurRecherche == $value) {
+                return $array;
+            } 
         }
     }
-    return false;
 };
-//attention ca ne fonctionnera qu'avec des valeurs uniques!
 
 
-
-
-
-
-
+//à tester
+// celle ci sert a sortir tous les tableaux associatif(objet) qui contiennent la valeurRecherche
+function researchInArrayAndFindArray(&$contextualArray , $valeurRecherche, $grosTabQuiVientDuCsv)
+{
+    //$valeurRecherche les valeurs qu'on recherche par exemple ($valeurRecherche = "Gertrude")
+    //$grosTabQuiVientDuCsv c'est le tableau qu'on a appelé avant avec une fonction de lecture
+    foreach ($grosTabQuiVientDuCsv as $array) {
+        foreach ($array as $value) {
+            if ($valeurRecherche == $value) {
+                $contextualArray[]=  $array;
+            } 
+        }
+    }
+    return $contextualArray;
+};
