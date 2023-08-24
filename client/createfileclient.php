@@ -1,8 +1,8 @@
 <?php
 // include("./classClient.php");
-include("../client\classClient.php");
+include_once("../client\classClient.php");
 require_once("../lib/function.php");
-
+$client = [];
 $client = new Client;
 $client->setPrenom();
 $client->setNom();
@@ -15,4 +15,3 @@ $fileName = "../client/sauv/client.csv";
 $header = array("ID", "Nom", "Prénom", "Date_de_naissance", "Mail");
 
 createFile($client, $fileName, $header);
-unset($client);

@@ -141,24 +141,24 @@ class Client
 
 
     //si on demande une valeur qui existe plusieurs fois on aura que le premier objet qui le contient
- public static function researchClientByUniqueValue()
+    public static function researchClientByUniqueValue()
     {
         $value = readline("Veuillez saisir l'ID client': ");
-        $fileName = "./sauv/client.csv";
+        $fileName = "../client/sauv/client.csv";
         csvToArray($arrayIn, $fileName);
         var_dump($arrayIn);
         $var = researchInArray($value, $arrayIn);
-        var_dump( $var);
+        var_dump($var);
     }
 
     public static function researchClientByMoreValue()
     {
-        $value = readline("Veuillez saisir nimporte quoi concernant le client': ");
-        $fileName = "./sauv/client.csv";
+        $value = readline("Veuillez saisir n'importe quoi concernant le client': ");
+        $fileName = "../client/sauv/client.csv";
         csvToArray($arrayIn, $fileName);
         var_dump($arrayIn);
-        researchInArrayAndFindArray($contextualArray , $value , $arrayIn);
-        var_dump( $contextualArray); 
+        researchInArrayAndFindArray($contextualArray, $value, $arrayIn);
+        var_dump($contextualArray);
     }
 
     //function obsolète
@@ -174,4 +174,4 @@ class Client
 }
 
 
-Client::researchClientByUniqueValue();
+// Client::researchClientByUniqueValue();

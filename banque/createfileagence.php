@@ -1,6 +1,6 @@
 <?php
 
-include("../banque/classAgence.php");
+include_once("../banque/classAgence.php");
 require_once("../lib/function.php");
 $numero = [];
 

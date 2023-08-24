@@ -1,5 +1,7 @@
 <?php
 // require_once ("../client/createfileclient.php")
+include("../client/classClient.php");
+
 
 $restart = "Oui";
 
@@ -27,7 +29,11 @@ while ($restart == "Oui" || $restart == "oui") {
             break;
         case 3:
         case 4:
+            Client::researchClientByUniqueValue();
+            break;
         case 5:
+            Client::researchClientByMoreValue();
+            break;
         case 6:
         case 7:
         case 8:
