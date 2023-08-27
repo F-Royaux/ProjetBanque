@@ -2,7 +2,7 @@
 
 class Agence
 {
-    // private ?int $CodeAgence;
+    private ?int $IdAgence;
     private string $NomAgence;
     private string $Adresse;
 
@@ -59,24 +59,42 @@ class Agence
      *
      * @return ?int
      */
-    // // public function getCodeAgence(): ?int
-    // // {
-    // //     return $this->CodeAgence;
-    // // }
+    public function createIdAgence()
+    {
+        $rand = 000;
+        $strlengthagence = 3;
+        $rand = $rand + 1;
+        $rand = substr("000{$rand}", -$strlengthagence);
+        $idAgence = randagence($rand);
+        return $idAgence;
+    }
 
-    // // /**
-    // //  * Set the value of CodeAgence
-    // //  *
-    // //  * @param ?int $CodeAgence
-    // //  *
-    // //  * @return self
-    // //  */
-    // // public function setCodeAgence(?int $CodeAgence): self
-    // // {
-    // //     $this->CodeAgence = $CodeAgence;
+    public function getIdAgence(): ?int
+    {
+        return $this->IdAgence;
+    }
 
-    // //     return $this;
-    // // }
+    /**
+     * Set the value of CodeAgence
+     *
+     * @param ?int $CodeAgence
+     *
+     * @return self
+     */
+    public function setIdAgence(?int $IdAgence): self
+    {
+        $this->IdAgence = $IdAgence;
 
+        return $this;
+    }
 
+    public static function researchIdAgence()
+    {
+        $value = readline("Veuillez saisir l'ID de l'agence': ");
+        $fileName = "../banque/sauv/agenceId.csv";
+        csvToArray($arrayIn, $fileName);
+        var_dump($arrayIn);
+        $var = researchInArray($value, $arrayIn);
+        var_dump($var);
+    }
 }
