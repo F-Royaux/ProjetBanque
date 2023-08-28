@@ -26,6 +26,8 @@ while ($restart == "Oui" || $restart == "oui") {
         case 2:
             // CHEMIN TEMPORAIRE ATTENTION
             include("../client/createfileclient.php");
+            Client::createClient();
+            
             break;
         case 3:
         case 4:

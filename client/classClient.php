@@ -148,16 +148,21 @@ class Client
         do {
             $client->setIdClient();
             csvToArray($array, $fileName);
-           $x = (researchInArray($client->getIdClient(), $array));
-        } while ( $x !== null); //la condition null à vérifier
+            $x = researchInArray($client->getIdClient(), $array);
+        } while ($x !== null); //la condition null à vérifier (quand la fonction de recherche trouve rien)
 
         $client->setPrenom();
         $client->setNom();
         $client->setDateNaissance();
         $client->setMail();
         $header = array("ID", "Nom", "Prénom", "Date_de_naissance", "Mail");
-
-        createFile($client, $fileName, $header);
+        $checkForMail = researchInArray($client->getMail(), $array); //je suis pas sur 
+        if ($checkForMail !== null) {
+            echo ("Ce compte client existe déja. \n" ."Vous allez être redirigé sur le menu");
+        }else {
+            createFile($client, $fileName, $header);
+        }
+        
     }
 
 
