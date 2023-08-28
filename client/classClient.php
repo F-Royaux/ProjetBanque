@@ -138,6 +138,27 @@ class Client
 
         return $IdClient;
     }
+    public static function createClient()
+    {
+
+        $client = [];
+        $client = new Client;
+        $fileName = './sauv/client.csv';
+
+        do {
+            $client->setIdClient();
+            csvToArray($array, $fileName);
+           $x = (researchInArray($client->getIdClient(), $array));
+        } while ( $x !== null); //la condition null à vérifier
+
+        $client->setPrenom();
+        $client->setNom();
+        $client->setDateNaissance();
+        $client->setMail();
+        $header = array("ID", "Nom", "Prénom", "Date_de_naissance", "Mail");
+
+        createFile($client, $fileName, $header);
+    }
 
 
     //si on demande une valeur qui existe plusieurs fois on aura que le premier objet qui le contient
