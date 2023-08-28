@@ -1,11 +1,12 @@
 <?php
+
+include ("../lib/function.php");
 //créer une classe compte banquaire avec les variables N°compte (=ID), Objet Client, Code Agence, Solde, découvertO/N. ((éventuellement type)) pas besoin de constructeur, faire getter/setter(avec des readlines) sauf pour client objet et code agence.
 class comptebancaire
 {
 
     private string $Idcomptebancaire;
-    private string $typedecompte;
-    //au final j'ai remis un string sur le type de compte pour une lecture plus faile
+    private string $typedecompte;  //au final j'ai remis un string sur le type de compte pour une lecture plus faile
     private float $Solde;
     private bool $DecouvertAutorise;
     private string  $Idagence;
@@ -40,8 +41,7 @@ class comptebancaire
             $strlengthcomptebanc = 11;
             $rand = random_int(0, 99999999999);
             $rand = substr("00000000000{$rand}", -$strlengthcomptebanc);
-            $Idcomptebancaire = randcompteb($rand);
-
+            $Idcomptebancaire = $rand;
             if (file_exists($fileName)) {
                 csvToArray($tabDeRecherche, $fileName);
                 $x = researchInArray($Idcomptebancaire, $tabDeRecherche);
@@ -166,14 +166,16 @@ class comptebancaire
      * @return self
      */
 
-     //setIdagence à tester
+    //setIdagence à tester
     public function setIdagence(int $Idagence): self
     {
+        //ici on recherche l'id en passant par le nom
+        //on pourra le retravailler en proposant par exemple le choix d'écrire l'Id directement ou de faire une recherche
         $input = readline("Veuillez saisir le nom de l'agence avec laquelle le compte sera affilié: ");
         $fileName = "../banque/sauv/agence.csv";
         csvToArray($tabDeRecherche, $fileName);
         $x = researchInArray($input, $tabDeRecherche);
-        $Idagence = $x[0];
+        $Idagence = $x[0]; // je prends l'index 0 car c'est là qu'est censé se trouver l'ID
         $this->Idagence = $Idagence;
         return $this;
     }
@@ -197,12 +199,14 @@ class comptebancaire
      */
     public function setIdClient(string $IdClient): self
     {
-        $input = readline("Veuillez saisir le nom du client qui possédera le compte: ");
+        //ici on recherche l'id en passant par le mail
+        //on pourra le retravailler en proposant par exemple le choix d'écrire l'Id directement ou de faire une recherche
+        $input = readline("Veuillez saisir le mail du client qui possédera le compte: ");
         $fileName = "../client/sauv/client.csv";
         csvToArray($tabDeRecherche, $fileName);
         $x = researchInArray($input, $tabDeRecherche);
-        $IdClient = $x[0];
-        
+        $IdClient = $x[0]; // je prends l'index 0 car c'est là qu'est censé se trouver l'ID
+
         $this->IdClient = $IdClient;
         return $this;
     }
@@ -210,6 +214,8 @@ class comptebancaire
 
     public static function createCompte()
     {
-        //setter ici
+        //tous les setters ici
+        //éventuellement vérifier les doublons
+        //ensuite écrire dans le fichiers
     }
 }
