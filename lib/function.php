@@ -65,7 +65,7 @@ function researchInArray($valeurRecherche, $grosTabQuiVientDuCsv)
         foreach ($array as $value) {
             if ($valeurRecherche == $value) {
                 return $array;
-            } 
+            }
         }
     }
 };
@@ -73,16 +73,54 @@ function researchInArray($valeurRecherche, $grosTabQuiVientDuCsv)
 
 //à tester
 // celle ci sert a sortir tous les tableaux associatif(objet) qui contiennent la valeurRecherche
-function researchInArrayAndFindArray(&$contextualArray , $valeurRecherche, $grosTabQuiVientDuCsv)
+function researchInArrayAndFindArray(&$contextualArray, $valeurRecherche, $grosTabQuiVientDuCsv)
 {
     //$valeurRecherche les valeurs qu'on recherche par exemple ($valeurRecherche = "Gertrude")
     //$grosTabQuiVientDuCsv c'est le tableau qu'on a appelé avant avec une fonction de lecture
     foreach ($grosTabQuiVientDuCsv as $array) {
         foreach ($array as $value) {
             if ($valeurRecherche == $value) {
-                $contextualArray[]=  $array;
-            } 
+                $contextualArray[] =  $array;
+            }
         }
     }
     return $contextualArray;
 };
+function saisirDateNaissance()
+{
+    $dateValide = false;
+
+    while (!$dateValide) {
+        $input = readline("Entrez votre date de naissance (JJ/MM/AAAA) : ");
+
+        // Vérifier si la saisie correspond au format attendu
+        if (preg_match('/^(\d{2})\/(\d{2})\/(\d{4})$/', $input, $matches)) {
+            $jour = intval($matches[1]);
+            $mois = intval($matches[2]);
+            $annee = intval($matches[3]);
+
+            // Vérifier si la date est valide
+            if (checkdate($mois, $jour, $annee)) {
+                // Calculer l'âge
+                $aujourdHui = new DateTime();
+                $dateNaissance = new DateTime("$annee-$mois-$jour");
+                $difference = $aujourdHui->diff($dateNaissance);
+                $age = $difference->y;
+
+                // Vérifier si l'âge est supérieur à 18
+                if ($age >= 18) {
+                    $dateValide = true;
+                    $dateNaissanceFormattée = sprintf('%02d/%02d/%04d', $jour, $mois, $annee);
+                    return $dateNaissanceFormattée;
+                } else {
+                    echo "Vous devez avoir au moins 18 ans pour continuer.\n";
+                    exit;
+                }
+            } else {
+                echo "Date de naissance invalide. Veuillez réessayer.\n";
+            }
+        } else {
+            echo "Format invalide. Veuillez utiliser le format JJ/MM/AAAA.\n";
+        }
+    }
+}

@@ -90,7 +90,7 @@ class Client
     {
 
 
-        $dateNaissance = readline("votre date de naissance, (format 31/12/2000) : ");
+        $dateNaissance = saisirDateNaissance();
         $this->dateNaissance = $dateNaissance;
 
 
@@ -158,11 +158,10 @@ class Client
         $header = array("ID", "Nom", "Prénom", "Date_de_naissance", "Mail");
         $checkForMail = researchInArray($client->getMail(), $array); //je suis pas sur 
         if ($checkForMail !== null) {
-            echo ("Ce compte client existe déja. \n" ."Vous allez être redirigé sur le menu");
-        }else {
+            echo ("Ce compte client existe déja. \n" . "Vous allez être redirigé sur le menu");
+        } else {
             createFile($client, $fileName, $header);
         }
-        
     }
 
 
