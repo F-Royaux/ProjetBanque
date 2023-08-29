@@ -86,7 +86,7 @@ class comptebancaire
                 $typedecompte = "Plan Epargne Logement";
                 break;
         }
-
+         
         $this->typedecompte = $typedecompte;
         return $this;
     }
@@ -139,14 +139,28 @@ class comptebancaire
      * @return self
      */
     public function setSolde(int $Solde): self
-    {
+    { 
 
         //il y aura une petite nuance à prendre en compte à la protection de la saisie:
         // si $decouvertAutorisé = false => empêcher la saisie de valeurs négatives
-        $Solde = intval(readline("Veuillez saisir le solde du compte : "));
-        $this->Solde = $Solde;
-        return $this;
+        $Solde = ctype_digit(intval(readline("Veuillez saisir le solde du compte : ")));
+        if ($Solde >=0) {
+            if ($DecouvertAutorise=false)
+             $this->Solde = $Solde; 
+
+             echo "Le solde ne peut pas être négatif.\n";
+
+        }   else {
+            while ($Solde >= 0){
+
+            $this->Solde = $Solde;
+        } 
+    }   
+         return $this;
     }
+        
+       
+    
 
     /**
      * Get the value of Idagence

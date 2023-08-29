@@ -1,6 +1,4 @@
 <?php 
-
-
 $rand=000;
 function randagence($rand){
 $strlengthagence = 3;
@@ -9,5 +7,5 @@ $rand =substr("000{$rand}",-$strlengthagence);
 return $rand;
 }
 
-$idagence=randagence($rand);
-echo($idagence);
+$Idagence=randagence($rand);
+echo($Idagence);
