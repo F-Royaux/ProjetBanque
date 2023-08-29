@@ -8,7 +8,7 @@ class comptebancaire
     //au final j'ai remis un string sur le type de compte pour une lecture plus faile
     private float $Solde;
     private bool $DecouvertAutorise;
-    private string  $Idagence;
+    private string  $IdAgence;
     private string  $IdClient;
 
     /**
@@ -149,32 +149,32 @@ class comptebancaire
     }
 
     /**
-     * Get the value of Idagence
+     * Get the value of IdAgence$IdAgence
      *
      * @return string
      */
-    public function getIdagence(): string
+    public function getIdAgence$IdAgence(): string
     {
-        return $this->Idagence;
+        return $this->IdAgence$IdAgence;
     }
 
     /**
-     * Set the value of Idagence
+     * Set the value of IdAgence$IdAgence
      *
-     * @param string $Idagence
+     * @param string $IdAgence
      *
      * @return self
      */
 
-     //setIdagence à tester
-    public function setIdagence(int $Idagence): self
+     //setIdAgence$IdAgence à tester
+    public function setIdAgence$IdAgence(int $IdAgence): self
     {
         $input = readline("Veuillez saisir le nom de l'agence avec laquelle le compte sera affilié: ");
         $fileName = "../banque/sauv/agence.csv";
         csvToArray($tabDeRecherche, $fileName);
         $x = researchInArray($input, $tabDeRecherche);
-        $Idagence = $x[0];
-        $this->Idagence = $Idagence;
+        $IdAgence = $x[0];
+        $this->IdAgence$IdAgence = $IdAgence;
         return $this;
     }
 

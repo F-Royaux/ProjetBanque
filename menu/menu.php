@@ -1,6 +1,7 @@
 <?php
 // require_once ("../client/createfileclient.php")
 include("../client/classClient.php");
+include("../banque/classAgence.php");
 
 
 $restart = "Oui";
@@ -21,7 +22,9 @@ while ($restart == "Oui" || $restart == "oui") {
     $choix = readline("Faites votre choix : ");
     switch ($choix) {
         case 1:
-            include("../banque/createfileagence.php");
+            // include("../banque/createfileagence.php");
+            Agence::createIdAgence();
+            var_dump($idAgence);
             break;
         case 2:
             // CHEMIN TEMPORAIRE ATTENTION
