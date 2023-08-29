@@ -5,13 +5,16 @@ require_once("./lib/function.php");
 $fileName= "./client/sauv/client.csv";
 
 csvToArray($newArray, $fileName);
-print_r($newArray);
-$recherhceId = "HA084856";
-$x = researchInArray($recherhceId, $newArray);
-// researchInArray($recherhceId, $newArray);
-// function researchTabAssociatif($array, $key, $value){
-// foreach ($array as $key => $value) {
-//     if ($key => $value)
+// print_r($newArray);
+$recherhceId = "HA084857";
+// $arrayTest = researchInArray($recherhceId, $newArray);
+
+// print_r($arrayTest);
+// var_dump(isset($arrayTest));
+// if (!$arrayTest)
+// {echo ("condition 1");}else{
+//     print_r($arrayTest);
 // }
-// }
-print_r($x);
+
+researchInArrayAndFindArray($contextualArray, $recherhceId, $newArray) ;
+var_dump($contextualArray);
