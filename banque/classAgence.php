@@ -2,7 +2,7 @@
 
 class Agence
 {
-    private ?int $IdAgence;
+    private int $IdAgence;
     private string $NomAgence;
     private string $Adresse;
 
@@ -57,7 +57,7 @@ class Agence
     /**
      * Get the value of CodeAgence
      *
-     * @return ?int
+     * @return int
      */
     public static function createIdAgence()
     {
@@ -108,4 +108,5 @@ class Agence
     }
 }
 
-Agence::createIdAgence();
+
+// Agence::createIdAgence(); //test de la méthode
