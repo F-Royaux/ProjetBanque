@@ -3,7 +3,7 @@ include("lib/function.php");
 
 class Agence
 {
-    private ?int $IdAgence;
+    private int $IdAgence;
     private string $NomAgence;
     private string $Adresse;
 
@@ -58,7 +58,7 @@ class Agence
     /**
      * Get the value of CodeAgence
      *
-     * @return ?int
+     * @return int
      */
     public function createIdAgence()
     {
@@ -96,4 +96,19 @@ class Agence
         $this->IdAgence = $this->createIdAgence();
 
         return $this;
+<<<<<<< HEAD
     }
+=======
+    }
+
+    public static function researchIdAgence()
+    {
+        //ouvrir fichier agenceId.csv
+        //vérifier si fichier existe
+        //si oui : rand = 0; sinon rand = dernière valeur
+    }
+}
+
+
+// Agence::createIdAgence(); //test de la méthode
+>>>>>>> b5f0104356cfc671cf40aae25d40dca8fa4f6edc

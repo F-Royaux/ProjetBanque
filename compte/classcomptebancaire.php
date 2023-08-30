@@ -174,26 +174,21 @@ class comptebancaire
      *
      * @return string
      */
-    public function getIdAgence$IdAgence(): string
+    public function getIdAgence(): string
     {
-        return $this->IdAgence$IdAgence;
+        return $this->IdAgence;
     }
 
     /**
-     * Set the value of IdAgence$IdAgence
+     * Set the value of IdAgence
      *
      * @param string $IdAgence
      *
      * @return self
      */
 
-<<<<<<< HEAD
-     //setIdAgence$IdAgence à tester
-    public function setIdAgence$IdAgence(int $IdAgence): self
-=======
     //setIdagence à tester
-    public function setIdagence(int $Idagence): self
->>>>>>> 299773e1b71570787b409553e275fea2c191c3f8
+    public function setIdagence(int $IdAgence): self
     {
         //ici on recherche l'id en passant par le nom
         //on pourra le retravailler en proposant par exemple le choix d'écrire l'Id directement ou de faire une recherche
@@ -201,13 +196,8 @@ class comptebancaire
         $fileName = "../banque/sauv/agence.csv";
         csvToArray($tabDeRecherche, $fileName);
         $x = researchInArray($input, $tabDeRecherche);
-<<<<<<< HEAD
-        $IdAgence = $x[0];
-        $this->IdAgence$IdAgence = $IdAgence;
-=======
-        $Idagence = $x[0]; // je prends l'index 0 car c'est là qu'est censé se trouver l'ID
-        $this->Idagence = $Idagence;
->>>>>>> 299773e1b71570787b409553e275fea2c191c3f8
+        $IdAgence = $x[0]; // je prends l'index 0 car c'est là qu'est censé se trouver l'ID
+        $this->IdAgence = $IdAgence;
         return $this;
     }
 
@@ -245,7 +235,16 @@ class comptebancaire
 
     public static function createCompte()
     {
+      $compte = new comptebancaire;
+      $fileName = '../banque/sauv/compte.csv';
+    // private string $typedecompte;  //au final j'ai remis un string sur le type de compte pour une lecture plus faile
+    // private float $Solde;
+    // private bool $DecouvertAutorise;
+    // private string  $IdAgence;
+    // private string  $IdClient;
         //tous les setters ici
+       
+        $this->setIdcomptebancaire();
         //éventuellement vérifier les doublons
         //ensuite écrire dans le fichiers
     }
