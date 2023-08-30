@@ -1,11 +1,12 @@
 <?php
+
+include ("../lib/function.php");
 //créer une classe compte banquaire avec les variables N°compte (=ID), Objet Client, Code Agence, Solde, découvertO/N. ((éventuellement type)) pas besoin de constructeur, faire getter/setter(avec des readlines) sauf pour client objet et code agence.
 class comptebancaire
 {
 
     private string $Idcomptebancaire;
-    private string $typedecompte;
-    //au final j'ai remis un string sur le type de compte pour une lecture plus faile
+    private string $typedecompte;  //au final j'ai remis un string sur le type de compte pour une lecture plus faile
     private float $Solde;
     private bool $DecouvertAutorise;
     private string  $IdAgence;
@@ -40,8 +41,7 @@ class comptebancaire
             $strlengthcomptebanc = 11;
             $rand = random_int(0, 99999999999);
             $rand = substr("00000000000{$rand}", -$strlengthcomptebanc);
-            $Idcomptebancaire = randcompteb($rand);
-
+            $Idcomptebancaire = $rand;
             if (file_exists($fileName)) {
                 csvToArray($tabDeRecherche, $fileName);
                 $x = researchInArray($Idcomptebancaire, $tabDeRecherche);
@@ -86,7 +86,7 @@ class comptebancaire
                 $typedecompte = "Plan Epargne Logement";
                 break;
         }
-
+         
         $this->typedecompte = $typedecompte;
         return $this;
     }
@@ -138,15 +138,36 @@ class comptebancaire
      *
      * @return self
      */
-    public function setSolde(int $Solde): self
-    {
-
-        //il y aura une petite nuance à prendre en compte à la protection de la saisie:
-        // si $decouvertAutorisé = false => empêcher la saisie de valeurs négatives
-        $Solde = intval(readline("Veuillez saisir le solde du compte : "));
-        $this->Solde = $Solde;
+     
+    public function setSolde(float $Solde, bool $DecouvertAutorise): self
+    { 
+        // Booleen de la condition de la boucle while
+        $isValidInput = false; 
+        while (!$isValidInput) {
+            $input = readline("Veuillez saisir un nombre : "); 
+            $message = "Saisie invalide. Veuillez entrer un nombre valide.\n";
+            //On vérifie que l'utilisateur saisie un nombre valide (hors caractéres)
+            if (filter_var($input, FILTER_VALIDATE_FLOAT) !== false) {
+                //Permet de convertir la saisie en nombre 
+                $soldeInsere = intval($input);
+                //Vérification si le solde passe en négatif et que le découvert n'est pas autorisé
+                if ($this->$Solde + $soldeInsere < 0 and $this->$DecouvertAutorise == false) {
+                    $message = "Le solde ne peut pas être négatif.\n";
+                } else {
+                    //Le solde est positif ou négatif mais avec le DecouvertAutorise
+                    $this->$Solde = $this->$Solde + $soldeInsere;
+                    $message = "Le solde de votre compte est de : " . $this->$Solde . " € ";
+                    $isValidInput = true;
+                }
+            }
+            //Affiche le message finale qu'il soit négatif ou positif
+            echo $message;
+        }
         return $this;
     }
+        
+       
+    
 
     /**
      * Get the value of IdAgence$IdAgence
@@ -166,15 +187,27 @@ class comptebancaire
      * @return self
      */
 
+<<<<<<< HEAD
      //setIdAgence$IdAgence à tester
     public function setIdAgence$IdAgence(int $IdAgence): self
+=======
+    //setIdagence à tester
+    public function setIdagence(int $Idagence): self
+>>>>>>> 299773e1b71570787b409553e275fea2c191c3f8
     {
+        //ici on recherche l'id en passant par le nom
+        //on pourra le retravailler en proposant par exemple le choix d'écrire l'Id directement ou de faire une recherche
         $input = readline("Veuillez saisir le nom de l'agence avec laquelle le compte sera affilié: ");
         $fileName = "../banque/sauv/agence.csv";
         csvToArray($tabDeRecherche, $fileName);
         $x = researchInArray($input, $tabDeRecherche);
+<<<<<<< HEAD
         $IdAgence = $x[0];
         $this->IdAgence$IdAgence = $IdAgence;
+=======
+        $Idagence = $x[0]; // je prends l'index 0 car c'est là qu'est censé se trouver l'ID
+        $this->Idagence = $Idagence;
+>>>>>>> 299773e1b71570787b409553e275fea2c191c3f8
         return $this;
     }
 
@@ -197,12 +230,14 @@ class comptebancaire
      */
     public function setIdClient(string $IdClient): self
     {
-        $input = readline("Veuillez saisir le nom du client qui possédera le compte: ");
+        //ici on recherche l'id en passant par le mail
+        //on pourra le retravailler en proposant par exemple le choix d'écrire l'Id directement ou de faire une recherche
+        $input = readline("Veuillez saisir le mail du client qui possédera le compte: ");
         $fileName = "../client/sauv/client.csv";
         csvToArray($tabDeRecherche, $fileName);
         $x = researchInArray($input, $tabDeRecherche);
-        $IdClient = $x[0];
-        
+        $IdClient = $x[0]; // je prends l'index 0 car c'est là qu'est censé se trouver l'ID
+
         $this->IdClient = $IdClient;
         return $this;
     }
@@ -210,6 +245,8 @@ class comptebancaire
 
     public static function createCompte()
     {
-        //setter ici
+        //tous les setters ici
+        //éventuellement vérifier les doublons
+        //ensuite écrire dans le fichiers
     }
 }

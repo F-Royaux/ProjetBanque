@@ -90,7 +90,7 @@ class Client
     {
 
 
-        $dateNaissance = readline("votre date de naissance, (format 31/12/2000) : ");
+        $dateNaissance = saisirDateNaissance();
         $this->dateNaissance = $dateNaissance;
 
 
@@ -137,6 +137,33 @@ class Client
         $IdClient = $idCliLet . $idCliNb;
 
         return $IdClient;
+    }
+    public static function createClient()
+    {
+
+        $client = [];
+        $client = new Client;
+        $fileName = '../client/sauv/client.csv';
+
+        do {
+            $client->setIdClient();
+            csvToArray($array, $fileName);
+            researchInArrayAndFindArray($checkForID, $client->getIdClient(), $array) ;
+
+        } while ($checkForID !== null); //la condition null à vérifier (quand la fonction de recherche trouve rien)
+
+        $client->setPrenom();
+        $client->setNom();
+        $client->setDateNaissance();
+        $client->setMail();
+        $header = array("ID", "Nom", "Prénom", "Date_de_naissance", "Mail");
+        // $checkForMail = researchInArray($client->getMail(), $array); //je suis pas sur 
+        researchInArrayAndFindArray($checkForMail, $client->getMail(), $array) ;
+        if ($checkForMail !== null) {
+            echo ("Ce compte client existe déja. \n" . "Vous allez être redirigé sur le menu");
+        } else {
+            createFile($client, $fileName, $header);
+        }
     }
 
 
