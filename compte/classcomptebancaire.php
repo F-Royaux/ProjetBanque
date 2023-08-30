@@ -138,25 +138,32 @@ class comptebancaire
      *
      * @return self
      */
-    public function setSolde(int $Solde): self
+     
+    public function setSolde(float $Solde, bool $DecouvertAutorise): self
     { 
-
-        //il y aura une petite nuance à prendre en compte à la protection de la saisie:
-        // si $decouvertAutorisé = false => empêcher la saisie de valeurs négatives
-        $Solde = ctype_digit(intval(readline("Veuillez saisir le solde du compte : ")));
-        if ($Solde >=0) {
-            if ($DecouvertAutorise=false)
-             $this->Solde = $Solde; 
-
-             echo "Le solde ne peut pas être négatif.\n";
-
-        }   else {
-            while ($Solde >= 0){
-
-            $this->Solde = $Solde;
-        } 
-    }   
-         return $this;
+        // Booleen de la condition de la boucle while
+        $isValidInput = false; 
+        while (!$isValidInput) {
+            $input = readline("Veuillez saisir un nombre : "); 
+            $message = "Saisie invalide. Veuillez entrer un nombre valide.\n";
+            //On vérifie que l'utilisateur saisie un nombre valide (hors caractéres)
+            if (filter_var($input, FILTER_VALIDATE_FLOAT) !== false) {
+                //Permet de convertir la saisie en nombre 
+                $soldeInsere = intval($input);
+                //Vérification si le solde passe en négatif et que le découvert n'est pas autorisé
+                if ($this->$Solde + $soldeInsere < 0 and $this->$DecouvertAutorise == false) {
+                    $message = "Le solde ne peut pas être négatif.\n";
+                } else {
+                    //Le solde est positif ou négatif mais avec le DecouvertAutorise
+                    $this->$Solde = $this->$Solde + $soldeInsere;
+                    $message = "Le solde de votre compte est de : " . $this->$Solde . " € ";
+                    $isValidInput = true;
+                }
+            }
+            //Affiche le message finale qu'il soit négatif ou positif
+            echo $message;
+        }
+        return $this;
     }
         
        
