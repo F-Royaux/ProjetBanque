@@ -1,4 +1,5 @@
 <?php
+include("lib/function.php");
 
 class Agence
 {
@@ -59,26 +60,23 @@ class Agence
      *
      * @return ?int
      */
-    public static function createIdAgence()
+    public function createIdAgence()
     {
-        echo("dur");
-        // $filename = "../banque/sauv/agence.csv";
-        $filename = "./sauv/agence.csv";
+        // $filename = "banque/sauv/agence.csv";
+        $filename = "banque/sauv/agence.csv";
+        csvToArray($idCrea, $filename);
         if (!file_exists($filename)) {
             $rand = 0;
         } else { // ici on cherche le dernier ID dans le fichier
-            csvToArray($idCrea, $filename);
-            $x = end($idCrea);
-            $rand = $x[0];
+            $x = end($idCrea); // on prend le dernier élément
+            $rand = $x["Id"]; // on assigne son index à une valeur x
         }
-       
-        $strlengthagence = 3;
+        $strlengthagence = 3; // on génére l'id
         $rand = $rand + 1;
         $rand = substr("000{$rand}", -$strlengthagence);
         var_dump($rand);
         $idAgence= $rand;
-        var_dump($idAgence);
-        
+        return $idAgence;  
     }
 
     public function getIdAgence(): ?int
@@ -99,13 +97,3 @@ class Agence
 
         return $this;
     }
-
-    public static function researchIdAgence()
-    {
-        //ouvrir fichier agenceId.csv
-        //vérifier si fichier existe
-        //si oui : rand = 0; sinon rand = dernière valeur
-    }
-}
-
-Agence::createIdAgence();
