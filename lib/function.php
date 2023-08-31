@@ -125,12 +125,3 @@ function saisirDateNaissance()
         }
     }
 }
-
-function getdata($filename){
-    $file_handle = fopen($filename, 'r');
-    while (!feof($file_handle) ) {
-        $line_of_text[] = fgetcsv($file_handle, 1024);
-    }
-    fclose($file_handle);
-    return $line_of_text;
-}

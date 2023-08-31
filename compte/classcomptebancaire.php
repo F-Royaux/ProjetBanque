@@ -1,6 +1,6 @@
 <?php
 
-include ("../lib/function.php");
+include("lib/function.php");
 //créer une classe compte banquaire avec les variables N°compte (=ID), Objet Client, Code Agence, Solde, découvertO/N. ((éventuellement type)) pas besoin de constructeur, faire getter/setter(avec des readlines) sauf pour client objet et code agence.
 class comptebancaire
 {
@@ -250,27 +250,28 @@ class comptebancaire
         $fileName = '../banque/sauv/compte.csv';
 
         //tous les setters ici
-       
+
         $this->setIdcomptebancaire();
         //éventuellement vérifier les doublons
         //ensuite écrire dans le fichiers
     }
 
-    public static function searchCompteId() {
+    public static function searchCompteId()
+    {
         $fileName = "compte\compte.csv";
         $search = readline("Saisir l'ID du compte recherché: ");
-        $tabFile = getdata($fileName);
-        var_dump($tabFile);
+        csvToArray($tabFile, $fileName);
         $x = researchInArray($search, $tabFile);
         if ($x == true) {
-            
-        echo ("L'ID du compte à été trouvé, il correspond au compte suivant: " ); //ici, mettre la ligne du csv correspondant à l'ID recherché
-        }
-        else {
+            echo ("L'ID du compte à été trouvé, il correspond au compte suivant:\n"); //ici, mettre la ligne du csv correspondant à l'ID recherché
+            foreach ($x as $key => $value) {
+                echo ($key . ": " . $value . "\n");
+            }
+        } else {
             echo "Cet ID ne correspond à aucun compte...";
         }
         return $x;
     }
 }
 
-comptebancaire:: searchCompteId();
+comptebancaire::searchCompteId();
