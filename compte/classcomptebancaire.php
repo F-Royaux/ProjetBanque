@@ -7,8 +7,8 @@ class comptebancaire
 
     private string $Idcomptebancaire;
     private string $typedecompte;  //au final j'ai remis un string sur le type de compte pour une lecture plus faile
-    private float $Solde;
     private bool $DecouvertAutorise;
+    private float $Solde;
     private string  $IdAgence;
     private string  $IdClient;
 
@@ -32,7 +32,7 @@ class comptebancaire
 
 
     //à tester
-    public function setIdcomptebancaire(string $Idcomptebancaire): self
+    public function setIdcomptebancaire(): self
     {
         do {
             $fileName = "./sauv/agence.csv";
@@ -69,7 +69,7 @@ class comptebancaire
      *
      * @return self
      */
-    public function setTypedecompte(string $typedecompte): self
+    public function setTypedecompte(): self
     {
         $input = intval(readline("Quel type de compte voulez vous ouvrir?" . PHP_EOL . " 1-Compte courant 2-Livret A 3-Plan Epargne Logement : "));
         while ($input !== 1 | $input !== 2 | $input !== 3) {
@@ -107,7 +107,7 @@ class comptebancaire
      * @param bool $DecouvertAutorise
      * @return self
      */
-    public function setDecouvertAutorise(bool $DecouvertAutorise): self
+    public function setDecouvertAutorise(): self
     {
         $this->getTypedecompte();
         if ($this->typedecompte === "Compte courant") {
@@ -139,8 +139,17 @@ class comptebancaire
      * @return self
      */
 
-    public function setSolde(float $Solde, bool $DecouvertAutorise): self
+    public function setSolde(bool $DecouvertAutorise): self
     {
+
+        //dans la fonction il manquait l'initialisation de $this->$Solde
+        //donc je dois remets ça vite fait en espérant que ca marche :s
+        // by Flo
+        if (!isset($this->$Solde)) {
+            $this->$Solde = 0;
+        } else {
+            $this->getSolde();
+        }
         // Booleen de la condition de la boucle while
         $isValidInput = false;
         while (!$isValidInput) {
@@ -188,10 +197,11 @@ class comptebancaire
      */
 
     //setIdagence à tester
-    public function setIdagence(int $IdAgence): self
+    public function setIdagence(): self
     {
         //ici on recherche l'id en passant par le nom
         //on pourra le retravailler en proposant par exemple le choix d'écrire l'Id directement ou de faire une recherche
+        //protection et redirection à faire
         $input = readline("Veuillez saisir le nom de l'agence avec laquelle le compte sera affilié: ");
         $fileName = "../banque/sauv/agence.csv";
         csvToArray($tabDeRecherche, $fileName);
@@ -218,10 +228,11 @@ class comptebancaire
      *
      * @return self
      */
-    public function setIdClient(string $IdClient): self
+    public function setIdClient(): self
     {
         //ici on recherche l'id en passant par le mail
         //on pourra le retravailler en proposant par exemple le choix d'écrire l'Id directement ou de faire une recherche
+        //protection et redirection à faire
         $input = readline("Veuillez saisir le mail du client qui possédera le compte: ");
         $fileName = "../client/sauv/client.csv";
         csvToArray($tabDeRecherche, $fileName);
@@ -237,15 +248,33 @@ class comptebancaire
     {
         $compte = new comptebancaire;
         $fileName = '../banque/sauv/compte.csv';
-        // private string $typedecompte;  //au final j'ai remis un string sur le type de compte pour une lecture plus faile
-        // private float $Solde;
-        // private bool $DecouvertAutorise;
-        // private string  $IdAgence;
-        // private string  $IdClient;
+
         //tous les setters ici
 
-        $this->setIdcomptebancaire();
-        //éventuellement vérifier les doublons
-        //ensuite écrire dans le fichiers
+        $compte->setIdcomptebancaire();
+        $compte->setIdagence();
+        $compte->setIdClient();
+        $compte->setTypedecompte();
+        $compte->setDecouvertAutorise();
+        $var = $compte->getDecouvertAutorise();
+        $compte->setSolde($var);
+
+
+        //vérification des doublons et écriture
+
+        csvToArray($tabDeRechercheDoublonCompte, $fileName);
+        //je cherche une premiére fois tout les objets avec l'IdClient du compte
+        researchInArrayAndFindArray($tabVerifCompte, $compte->IdClient, $tabDeRechercheDoublonCompte);
+        //je cherche une seconde fois (dans le tableau qui contient tout les objets avec l'IdClient du compte) 
+        //pour vérifier que le même type de compte n'éxiste pas déja
+        researchInArrayAndFindArray($tabVerifCompte2, $compte->typedecompte, $tabVerifCompte);
+        if (!empty($tabVerifCompte2)) {
+            //si la fonction de recherche a trouvé le même type de compte
+            echo ("Un client ne peut posséder qu'un seul type de compte" . PHP_EOL . "Vous allez être redirigé vers le menu");
+        } else {
+            //si la fonction de recherche n'a pas trouvé le même type de compte
+            $header = array("IDcomptebancaire", "Idagence", "setIdClient", "Typedecompte", "Solde", "DecouvertAutorise");
+            createFile($compte, $fileName, $header);
+        }
     }
 }
