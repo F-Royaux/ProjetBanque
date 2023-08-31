@@ -31,7 +31,7 @@ function createFile($objet, $fileName, $header)
 // $csv=FileToArray($fileName);
 
 //la function a christope !!j'ai du enlevé le 3éme argument qui embêtait
-function csvToArray(&$donnees, $filename = '')
+function csvToArray(&$donnees, $filename = '') 
 {
     if (!file_exists($filename) || !is_readable($filename))
         return FALSE;
@@ -123,4 +123,13 @@ function saisirDateNaissance()
             echo "Format invalide. Veuillez utiliser le format JJ/MM/AAAA.\n";
         }
     }
+}
+
+function getdata($filename){
+    $file_handle = fopen($filename, 'r');
+    while (!feof($file_handle) ) {
+        $line_of_text[] = fgetcsv($file_handle, 1024);
+    }
+    fclose($file_handle);
+    return $line_of_text;
 }
