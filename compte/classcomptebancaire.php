@@ -1,6 +1,6 @@
 <?php
 
-include("../lib/function.php");
+include("lib/function.php");
 //créer une classe compte banquaire avec les variables N°compte (=ID), Objet Client, Code Agence, Solde, découvertO/N. ((éventuellement type)) pas besoin de constructeur, faire getter/setter(avec des readlines) sauf pour client objet et code agence.
 class comptebancaire
 {
@@ -270,35 +270,27 @@ public function setNewSolde(){
 
         //tous les setters ici
 
-        $compte->setIdcomptebancaire();
-        $compte->setIdagence();
-        $compte->setIdClient();
-        $compte->setTypedecompte();
-        $compte->setDecouvertAutorise();
-        $compte->setSolde();
+        $this->setIdcomptebancaire();
+        //éventuellement vérifier les doublons
+        //ensuite écrire dans le fichiers
+    }
 
-
-        //vérification des doublons et écriture
-
-        csvToArray($tabDeRechercheDoublonCompte, $fileName);
-        //je cherche une premiére fois tout les objets avec l'IdClient du compte
-        researchInArrayAndFindArray($tabVerifCompte, $compte->IdClient, $tabDeRechercheDoublonCompte);
-        //je cherche une seconde fois (dans le tableau qui contient tout les objets avec l'IdClient du compte) 
-        //pour vérifier que le même type de compte n'éxiste pas déja
-        researchInArrayAndFindArray($tabVerifCompte2, $compte->typedecompte, $tabVerifCompte);
-        if (!empty($tabVerifCompte2)) {
-            //si la fonction de recherche a trouvé le même type de compte
-            echo ("Un client ne peut posséder qu'un seul type de compte" . PHP_EOL . "Vous allez être redirigé vers le menu");
+    public static function searchCompteId()
+    {
+        $fileName = "compte\compte.csv";
+        $search = readline("Saisir l'ID du compte recherché: ");
+        csvToArray($tabFile, $fileName);
+        $x = researchInArray($search, $tabFile);
+        if ($x == true) {
+            echo ("L'ID du compte à été trouvé, il correspond au compte suivant:\n"); //ici, mettre la ligne du csv correspondant à l'ID recherché
+            foreach ($x as $key => $value) {
+                echo ($key . ": " . $value . "\n");
+            }
         } else {
-            //si la fonction de recherche n'a pas trouvé le même type de compte
-            $header = array("IDcomptebancaire", "Idagence", "setIdClient", "Typedecompte", "Solde", "DecouvertAutorise");
-            createFile($compte, $fileName, $header);
+            echo "Cet ID ne correspond à aucun compte...";
         }
+        return $x;
     }
 }
 
-// $objet= New comptebancaire(100, false);
-// var_dump($objet);
-// // $r = $objet->getSolde();
-// // $objet->setSolde($r);
-// $objet->setNewSolde();
+comptebancaire::searchCompteId();

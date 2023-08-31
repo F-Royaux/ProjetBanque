@@ -31,7 +31,7 @@ function createFile($objet, $fileName, $header)
 // $csv=FileToArray($fileName);
 
 //la function a christope !!j'ai du enlevé le 3éme argument qui embêtait
-function csvToArray(&$donnees, $filename = '')
+function csvToArray(&$donnees, $filename = '') 
 {
     if (!file_exists($filename) || !is_readable($filename))
         return FALSE;
