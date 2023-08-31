@@ -2,7 +2,7 @@
 // require_once ("../client/createfileclient.php")
 include("../client/classClient.php");
 include("../banque/classAgence.php");
-
+include("../compte/classcomptebancaire.php");
 
 $restart = "Oui";
 
@@ -23,6 +23,7 @@ while ($restart == "Oui" || $restart == "oui") {
     switch ($choix) {
         case 1:
             // include("../banque/createfileagence.php");
+            echo ("ne marchera pas tant que createAgence n'est pas fait");
             Agence::createIdAgence();
             var_dump($idAgence);
             break;
@@ -33,6 +34,8 @@ while ($restart == "Oui" || $restart == "oui") {
             
             break;
         case 3:
+            comptebancaire::createCompte();
+            break;
         case 4:
             Client::researchClientByUniqueValue();
             break;

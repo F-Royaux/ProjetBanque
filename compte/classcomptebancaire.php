@@ -1,22 +1,21 @@
 <?php
 
-include("lib/function.php");
+// include("../lib/function.php");
 //créer une classe compte banquaire avec les variables N°compte (=ID), Objet Client, Code Agence, Solde, découvertO/N. ((éventuellement type)) pas besoin de constructeur, faire getter/setter(avec des readlines) sauf pour client objet et code agence.
 class comptebancaire
 {
 
     private string $Idcomptebancaire;
+    private string  $IdAgence;
+    private string  $IdClient; 
     private string $typedecompte;  //au final j'ai remis un string sur le type de compte pour une lecture plus faile
     private bool $DecouvertAutorise;
     private float $Solde;
-    private string  $IdAgence;
-    private string  $IdClient;
-    
-    public function __construct ($Solde ,$DecouvertAutorise){
+    // public function __construct ($Solde ,$DecouvertAutorise){
        
-        $this->Solde=$Solde;
-        $this->DecouvertAutorise=$DecouvertAutorise;
-    }
+    //     $this->Solde=$Solde;
+    //     $this->DecouvertAutorise=$DecouvertAutorise;
+    // }
 
     /**
      * Get the value of Idcomptebancaire
@@ -41,7 +40,7 @@ class comptebancaire
     public function setIdcomptebancaire(): self
     {
         do {
-            $fileName = "./sauv/agence.csv";
+            $fileName = "../banque/sauv/agence.csv";
 
             $rand = 0;
             $strlengthcomptebanc = 11;
@@ -63,7 +62,7 @@ class comptebancaire
      *
      * @return int
      */
-    public function getTypedecompte(): int
+    public function getTypedecompte(): string
     {
         return $this->typedecompte;
     }
@@ -78,7 +77,8 @@ class comptebancaire
     public function setTypedecompte(): self
     {
         $input = intval(readline("Quel type de compte voulez vous ouvrir?" . PHP_EOL . " 1-Compte courant 2-Livret A 3-Plan Epargne Logement : "));
-        while ($input !== 1 | $input !== 2 | $input !== 3) {
+        var_dump($input);
+        while (($input > 4) || ($input < 1)) {
             $input = intval(readline("Il y a eu une erreur dans votre saisie, veuillez recommencer." . PHP_EOL . "Quel type de compte voulez vous ouvrir?" . PHP_EOL . " 1-Compte courant 2-Livret A 3-Plan Epargne Logement : "));
         }
         switch ($input) {
@@ -148,26 +148,15 @@ class comptebancaire
     public function setSolde(float $Solde=0): self
     {
         $this->DecouvertAutorise=$this->getDecouvertAutorise();
-        var_dump($this->DecouvertAutorise);
-
-
-
-        
+        // var_dump($this->DecouvertAutorise);  
         $this->Solde=$Solde;
-        echo ("Solde:" . $Solde);
-        var_dump($this->Solde);
-        //dans la fonction il manquait l'initialisation de $this->$Solde
-        //donc je dois remets ça vite fait en espérant que ca marche :s
-        // by Flo
-        // if (!isset($this->$Solde)) {
-        //     $this->$Solde = 0;
-        // } else {
-        //     $this->getSolde();
-        // }
+        // echo ("Solde:" . $Solde);
+        // var_dump($this->Solde);
+
         // Booleen de la condition de la boucle while
         $isValidInput = false;
         while (!$isValidInput) {
-            $input = readline("Veuillez saisir un nombre : ");
+            $input = readline("Veuillez saisir le montant de l'opération: ");
             $message = "Saisie invalide. Veuillez entrer un nombre valide.\n";
             //On vérifie que l'utilisateur saisie un nombre valide (hors caractéres)
             if (filter_var($input, FILTER_VALIDATE_FLOAT) !== false) {
@@ -183,7 +172,7 @@ class comptebancaire
                     $isValidInput = true;
                 }
             }
-            //Affiche le message finale qu'il soit négatif ou positif
+            //Affiche le message final qu'il soit négatif ou positif
             echo $message;
         }
         return $this;
@@ -224,8 +213,9 @@ public function setNewSolde(){
         $input = readline("Veuillez saisir le nom de l'agence avec laquelle le compte sera affilié: ");
         $fileName = "../banque/sauv/agence.csv";
         csvToArray($tabDeRecherche, $fileName);
+        print_r($tabDeRecherche);
         $x = researchInArray($input, $tabDeRecherche);
-        $IdAgence = $x[0]; // je prends l'index 0 car c'est là qu'est censé se trouver l'ID
+        $IdAgence = $x['Id']; 
         $this->IdAgence = $IdAgence;
         return $this;
     }
@@ -256,23 +246,10 @@ public function setNewSolde(){
         $fileName = "../client/sauv/client.csv";
         csvToArray($tabDeRecherche, $fileName);
         $x = researchInArray($input, $tabDeRecherche);
-        $IdClient = $x[0]; // je prends l'index 0 car c'est là qu'est censé se trouver l'ID
+        $IdClient = $x['ID']; // je prends l'index 0 car c'est là qu'est censé se trouver l'ID
 
         $this->IdClient = $IdClient;
         return $this;
-    }
-
-
-    public static function createCompte()
-    {
-        $compte = new comptebancaire;
-        $fileName = '../banque/sauv/compte.csv';
-
-        //tous les setters ici
-
-        $this->setIdcomptebancaire();
-        //éventuellement vérifier les doublons
-        //ensuite écrire dans le fichiers
     }
 
     public static function searchCompteId()
@@ -291,6 +268,39 @@ public function setNewSolde(){
         }
         return $x;
     }
+    public static function createCompte()
+    {
+        $compte = new comptebancaire;
+        $fileName = '../banque/sauv/compte.csv';
+
+        //tous les setters ici
+        $compte->setIdcomptebancaire();
+        $compte->setIdagence();
+        $compte->setIdClient();
+        $compte->setTypedecompte();
+        $compte->setDecouvertAutorise();
+        $compte->setSolde();
+
+        //vérification des doublons et écriture
+echo ('setter done');
+        csvToArray($tabDeRechercheDoublonCompte, $fileName);
+        var_dump($tabDeRechercheDoublonCompte);
+        //je cherche une premiére fois tout les objets avec l'IdClient du compte
+        researchInArrayAndFindArray($tabVerifCompte, $compte->IdClient, $tabDeRechercheDoublonCompte);
+        var_dump($tabVerifCompte);
+        //je cherche une seconde fois (dans le tableau qui contient tout les objets avec l'IdClient du compte) 
+        //pour vérifier que le même type de compte n'éxiste pas déja
+        researchInArrayAndFindArray($tabVerifCompte2, $compte->typedecompte, $tabVerifCompte);
+        if (!empty($tabVerifCompte2)) {
+            //si la fonction de recherche a trouvé le même type de compte
+            echo ("Un client ne peut posséder qu'un seul type de compte" . PHP_EOL . "Vous allez être redirigé vers le menu");
+        } else {
+            //si la fonction de recherche n'a pas trouvé le même type de compte
+            $header = array("IDcomptebancaire", "Idagence", "setIdClient", "Typedecompte", "Solde", "DecouvertAutorise");
+            createFile($compte, $fileName, $header);
+        }
+    }
 }
 
-comptebancaire::searchCompteId();
+
+

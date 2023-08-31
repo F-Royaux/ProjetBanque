@@ -154,7 +154,7 @@ class Client
         return $this;
     }
 
-    public static function createIdClient()
+    public function createIdClient()
     {
         $characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $randLet = "";
