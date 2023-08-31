@@ -1,5 +1,5 @@
 <?php
-include("lib/function.php");
+include_once("../lib/function.php");
 
 class Agence
 {
@@ -75,8 +75,8 @@ class Agence
         $rand = $rand + 1;
         $rand = substr("000{$rand}", -$strlengthagence);
         var_dump($rand);
-        $idAgence= $rand;
-        return $idAgence;  
+        $idAgence = $rand;
+        return $idAgence;
     }
 
     public function getIdAgence(): ?int
@@ -96,4 +96,19 @@ class Agence
         $this->IdAgence = $this->createIdAgence();
 
         return $this;
-    }}
+<<<<<<< HEAD
+    }
+=======
+    }
+
+    public static function researchIdAgence()
+    {
+        //ouvrir fichier agenceId.csv
+        //vérifier si fichier existe
+        //si oui : rand = 0; sinon rand = dernière valeur
+    }
+}
+
+
+// Agence::createIdAgence(); //test de la méthode
+>>>>>>> b5f0104356cfc671cf40aae25d40dca8fa4f6edc
