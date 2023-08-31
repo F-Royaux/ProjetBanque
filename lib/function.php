@@ -68,6 +68,7 @@ function researchInArray($valeurRecherche, $grosTabQuiVientDuCsv)
             }
         }
     }
+    return false;
 };
 
 

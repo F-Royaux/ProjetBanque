@@ -1,6 +1,6 @@
 <?php
 
-include ("../lib/function.php");
+include("../lib/function.php");
 //créer une classe compte banquaire avec les variables N°compte (=ID), Objet Client, Code Agence, Solde, découvertO/N. ((éventuellement type)) pas besoin de constructeur, faire getter/setter(avec des readlines) sauf pour client objet et code agence.
 class comptebancaire
 {
@@ -86,7 +86,7 @@ class comptebancaire
                 $typedecompte = "Plan Epargne Logement";
                 break;
         }
-         
+
         $this->typedecompte = $typedecompte;
         return $this;
     }
@@ -138,13 +138,13 @@ class comptebancaire
      *
      * @return self
      */
-     
+
     public function setSolde(float $Solde, bool $DecouvertAutorise): self
-    { 
+    {
         // Booleen de la condition de la boucle while
-        $isValidInput = false; 
+        $isValidInput = false;
         while (!$isValidInput) {
-            $input = readline("Veuillez saisir un nombre : "); 
+            $input = readline("Veuillez saisir un nombre : ");
             $message = "Saisie invalide. Veuillez entrer un nombre valide.\n";
             //On vérifie que l'utilisateur saisie un nombre valide (hors caractéres)
             if (filter_var($input, FILTER_VALIDATE_FLOAT) !== false) {
@@ -165,9 +165,9 @@ class comptebancaire
         }
         return $this;
     }
-        
-       
-    
+
+
+
 
     /**
      * Get the value of IdAgence$IdAgence
@@ -235,15 +235,15 @@ class comptebancaire
 
     public static function createCompte()
     {
-      $compte = new comptebancaire;
-      $fileName = '../banque/sauv/compte.csv';
-    // private string $typedecompte;  //au final j'ai remis un string sur le type de compte pour une lecture plus faile
-    // private float $Solde;
-    // private bool $DecouvertAutorise;
-    // private string  $IdAgence;
-    // private string  $IdClient;
+        $compte = new comptebancaire;
+        $fileName = '../banque/sauv/compte.csv';
+        // private string $typedecompte;  //au final j'ai remis un string sur le type de compte pour une lecture plus faile
+        // private float $Solde;
+        // private bool $DecouvertAutorise;
+        // private string  $IdAgence;
+        // private string  $IdClient;
         //tous les setters ici
-       
+
         $this->setIdcomptebancaire();
         //éventuellement vérifier les doublons
         //ensuite écrire dans le fichiers
