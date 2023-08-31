@@ -46,7 +46,20 @@ class Client
      */
     public function setNom()
     {
-        $nom = readline("Votre nom: ");
+        $pattern = '/^[A-Za-z]+$/';
+        $isValid = false;
+
+        while (!$isValid) {
+
+            $nom = readline("Saisissez votre nom: ");
+
+            if (preg_match($pattern, $nom)) {
+
+                $isValid = true;
+            } else {
+                echo "Nom invalide. Veuillez n'entrez que des lettres." . PHP_EOL;
+            }
+        }
         $this->nom = $nom;
 
         return $this;
@@ -67,7 +80,21 @@ class Client
      */
     public function setPrenom()
     {
-        $prenom = readline("Votre prénom: ");
+
+
+        $pattern = '/^[A-Za-z]+$/';
+        $isValid = false;
+
+        while (!$isValid) {
+
+            $prenom = readline("Saisissez votre Prenom: ");
+            if (preg_match($pattern, $prenom)) {
+
+                $isValid = true;
+            } else {
+                echo "Prenom invalide. Veuillez n'entrez que des lettres." . PHP_EOL;
+            }
+        }
         $this->prenom = $prenom;
 
         return $this;
@@ -112,7 +139,16 @@ class Client
      */
     public function setMail()
     {
-        $mail = readline("Votre mail: ");
+        $pattern = '/^[\w.-]+@[\w.-]+.\w+$/';
+        $isValid = false;
+        while (!$isValid) {
+            $mail = readline("veuillez entrez votre mail: ");
+            if (preg_match($pattern, $mail)) {
+                $isValid = true;
+            } else {
+                echo "Adresse e-mail invalide. Veuillez réessayer." . PHP_EOL;
+            }
+        }
         $this->mail = $mail;
 
         return $this;

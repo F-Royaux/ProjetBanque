@@ -11,6 +11,12 @@ class comptebancaire
     private float $Solde;
     private string  $IdAgence;
     private string  $IdClient;
+    
+    public function __construct ($Solde ,$DecouvertAutorise){
+       
+        $this->Solde=$Solde;
+        $this->DecouvertAutorise=$DecouvertAutorise;
+    }
 
     /**
      * Get the value of Idcomptebancaire
@@ -134,22 +140,30 @@ class comptebancaire
     /**
      * Set the value of Solde
      *
-     * @param int $Solde
+     * @param float $Solde
      *
      * @return self
      */
 
-    public function setSolde(bool $DecouvertAutorise): self
+    public function setSolde(float $Solde=0): self
     {
+        $this->DecouvertAutorise=$this->getDecouvertAutorise();
+        var_dump($this->DecouvertAutorise);
 
+
+
+        
+        $this->Solde=$Solde;
+        echo ("Solde:" . $Solde);
+        var_dump($this->Solde);
         //dans la fonction il manquait l'initialisation de $this->$Solde
         //donc je dois remets ça vite fait en espérant que ca marche :s
         // by Flo
-        if (!isset($this->$Solde)) {
-            $this->$Solde = 0;
-        } else {
-            $this->getSolde();
-        }
+        // if (!isset($this->$Solde)) {
+        //     $this->$Solde = 0;
+        // } else {
+        //     $this->getSolde();
+        // }
         // Booleen de la condition de la boucle while
         $isValidInput = false;
         while (!$isValidInput) {
@@ -160,12 +174,12 @@ class comptebancaire
                 //Permet de convertir la saisie en nombre 
                 $soldeInsere = intval($input);
                 //Vérification si le solde passe en négatif et que le découvert n'est pas autorisé
-                if ($this->$Solde + $soldeInsere < 0 and $this->$DecouvertAutorise == false) {
+                if ($this->Solde + $soldeInsere < 0 and $this->DecouvertAutorise == false) {
                     $message = "Le solde ne peut pas être négatif.\n";
                 } else {
                     //Le solde est positif ou négatif mais avec le DecouvertAutorise
-                    $this->$Solde = $this->$Solde + $soldeInsere;
-                    $message = "Le solde de votre compte est de : " . $this->$Solde . " € ";
+                    $this->Solde = $this->Solde + $soldeInsere;
+                    $message = "Le solde de votre compte est de : " . $this->Solde . " € ";
                     $isValidInput = true;
                 }
             }
@@ -175,6 +189,11 @@ class comptebancaire
         return $this;
     }
 
+public function setNewSolde(){
+    $AncienSolde = $this->getSolde();
+    $this->setSolde($AncienSolde);
+    return $this;
+}
 
 
 
@@ -256,8 +275,7 @@ class comptebancaire
         $compte->setIdClient();
         $compte->setTypedecompte();
         $compte->setDecouvertAutorise();
-        $var = $compte->getDecouvertAutorise();
-        $compte->setSolde($var);
+        $compte->setSolde();
 
 
         //vérification des doublons et écriture
@@ -278,3 +296,9 @@ class comptebancaire
         }
     }
 }
+
+// $objet= New comptebancaire(100, false);
+// var_dump($objet);
+// // $r = $objet->getSolde();
+// // $objet->setSolde($r);
+// $objet->setNewSolde();

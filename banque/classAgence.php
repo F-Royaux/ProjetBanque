@@ -26,9 +26,23 @@ class Agence
      */
     public function setNomAgence(): self
     {
-        $this->NomAgence = readline("Saisir le nom d'agence : ");
-
-        return $this;
+                $pattern = '/^[A-Za-z]+$/';
+                $isValid = false;
+                while (!$isValid) {
+    
+                    $NomAgence= readline("Saisir le Nom de l'agence : ");
+                        if (preg_match($pattern, $NomAgence)) {
+                        $isValid = true;
+                    } else{
+                        echo "Le nom d'agence n'existe pas:  " . PHP_EOL;
+                    }
+                        
+                }
+    
+            $this->NomAgence =$NomAgence;
+    
+            return $this;
+        
     }
 
     /**
