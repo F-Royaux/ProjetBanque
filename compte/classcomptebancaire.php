@@ -7,12 +7,12 @@ class comptebancaire
 
     private string $Idcomptebancaire;
     private string  $IdAgence;
-    private string  $IdClient; 
+    private string  $IdClient;
     private string $typedecompte;  //au final j'ai remis un string sur le type de compte pour une lecture plus faile
     private bool $DecouvertAutorise;
     private float $Solde;
     // public function __construct ($Solde ,$DecouvertAutorise){
-       
+
     //     $this->Solde=$Solde;
     //     $this->DecouvertAutorise=$DecouvertAutorise;
     // }
@@ -77,7 +77,6 @@ class comptebancaire
     public function setTypedecompte(): self
     {
         $input = intval(readline("Quel type de compte voulez vous ouvrir?" . PHP_EOL . " 1-Compte courant 2-Livret A 3-Plan Epargne Logement : "));
-        var_dump($input);
         while (($input > 4) || ($input < 1)) {
             $input = intval(readline("Il y a eu une erreur dans votre saisie, veuillez recommencer." . PHP_EOL . "Quel type de compte voulez vous ouvrir?" . PHP_EOL . " 1-Compte courant 2-Livret A 3-Plan Epargne Logement : "));
         }
@@ -145,13 +144,10 @@ class comptebancaire
      * @return self
      */
 
-    public function setSolde(float $Solde=0): self
+    public function setSolde(float $Solde = 0): self
     {
-        $this->DecouvertAutorise=$this->getDecouvertAutorise();
-        // var_dump($this->DecouvertAutorise);  
-        $this->Solde=$Solde;
-        // echo ("Solde:" . $Solde);
-        // var_dump($this->Solde);
+        $this->DecouvertAutorise = $this->getDecouvertAutorise();
+        $this->Solde = $Solde;
 
         // Booleen de la condition de la boucle while
         $isValidInput = false;
@@ -168,7 +164,7 @@ class comptebancaire
                 } else {
                     //Le solde est positif ou négatif mais avec le DecouvertAutorise
                     $this->Solde = $this->Solde + $soldeInsere;
-                    $message = "Le solde de votre compte est de : " . $this->Solde . " € ";
+                    $message = "Le solde de votre compte est de : " . $this->Solde . " €. \n";
                     $isValidInput = true;
                 }
             }
@@ -178,11 +174,12 @@ class comptebancaire
         return $this;
     }
 
-public function setNewSolde(){
-    $AncienSolde = $this->getSolde();
-    $this->setSolde($AncienSolde);
-    return $this;
-}
+    public function setNewSolde()
+    {
+        $AncienSolde = $this->getSolde();
+        $this->setSolde($AncienSolde);
+        return $this;
+    }
 
 
 
@@ -213,9 +210,8 @@ public function setNewSolde(){
         $input = readline("Veuillez saisir le nom de l'agence avec laquelle le compte sera affilié: ");
         $fileName = "../banque/sauv/agence.csv";
         csvToArray($tabDeRecherche, $fileName);
-        print_r($tabDeRecherche);
         $x = researchInArray($input, $tabDeRecherche);
-        $IdAgence = $x['Id']; 
+        $IdAgence = $x['Id'];
         $this->IdAgence = $IdAgence;
         return $this;
     }
@@ -271,7 +267,7 @@ public function setNewSolde(){
     public static function createCompte()
     {
         $compte = new comptebancaire;
-        $fileName = '../banque/sauv/compte.csv';
+        $fileName = '../compte/sauv/compte.csv';
 
         //tous les setters ici
         $compte->setIdcomptebancaire();
@@ -282,7 +278,7 @@ public function setNewSolde(){
         $compte->setSolde();
 
         //vérification des doublons et écriture
-echo ('setter done');
+        echo ('setter done');
         csvToArray($tabDeRechercheDoublonCompte, $fileName);
         var_dump($tabDeRechercheDoublonCompte);
         //je cherche une premiére fois tout les objets avec l'IdClient du compte
@@ -296,11 +292,8 @@ echo ('setter done');
             echo ("Un client ne peut posséder qu'un seul type de compte" . PHP_EOL . "Vous allez être redirigé vers le menu");
         } else {
             //si la fonction de recherche n'a pas trouvé le même type de compte
-            $header = array("IDcomptebancaire", "Idagence", "setIdClient", "Typedecompte", "Solde", "DecouvertAutorise");
+            $header = array("IDcomptebancaire", "Idagence", "setIdClient", "Typedecompte", "DecouvertAutorise", "Solde");
             createFile($compte, $fileName, $header);
         }
     }
 }
-
-
-

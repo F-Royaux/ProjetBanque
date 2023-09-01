@@ -16,20 +16,6 @@ function createFile($objet, $fileName, $header)
     fclose($fp);
 }
 
-// fuction pour passer un .csv dans un tableau;; reste à vérifier avec plusieurs objets
-//utiliser l'autre fonction à partir de maintenant
-// function FileToArray($fileName)
-// {
-//     $fp = fopen($fileName, "r");
-//     while (!feof($fp) ) {
-//         $lines[] = fgetcsv($fp);
-//     }
-//     fclose($fp);
-//    return $lines;
-// }
-
-// $csv=FileToArray($fileName);
-
 //la function a christope !!j'ai du enlevé le 3éme argument qui embêtait
 function csvToArray(&$donnees, $filename = '') 
 {
