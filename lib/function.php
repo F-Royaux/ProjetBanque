@@ -111,3 +111,13 @@ function saisirDateNaissance()
         }
     }
 }
+function case5() {
+    $input = "veuillez saisir la valeur recherchée (Nom, Numéro de compte, Identifiant client): ";
+    $check = ctype_digit($input);
+    $input = trim($input);
+    if ($check){
+        comptebancaire::searchCompteId();
+    }else{
+        Client::researchClientByMoreValue();
+    }
+}

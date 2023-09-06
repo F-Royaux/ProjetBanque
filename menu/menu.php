@@ -40,7 +40,7 @@ while ($restart == "Oui" || $restart == "oui") {
             Client::researchClientByUniqueValue();
             break;
         case 5:
-            Client::researchClientByMoreValue();
+            case5();
             break;
         case 6:
         case 7:

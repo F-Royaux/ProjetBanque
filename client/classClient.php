@@ -185,7 +185,7 @@ class Client
             $client->setIdClient();
             csvToArray($array, $fileName);
             researchInArrayAndFindArray($checkForID, $client->getIdClient(), $array);
-        } while ($checkForID !== null); //la condition null à vérifier (quand la fonction de recherche trouve rien)
+        } while (!empty($checkForID) ); //la conditionquand la fonction de recherche trouve rien
 
         $client->setPrenom();
         $client->setNom();
@@ -218,9 +218,17 @@ class Client
         $value = readline("Veuillez saisir n'importe quoi concernant le client': ");
         $fileName = "../client/sauv/client.csv";
         csvToArray($arrayIn, $fileName);
-        var_dump($arrayIn);
+        // var_dump($arrayIn);
         researchInArrayAndFindArray($contextualArray, $value, $arrayIn);
-        var_dump($contextualArray);
+        // var_dump($contextualArray);
+        if (empty($contextualArray)){
+            echo "aucun résultat trouvé";
+        } else  {
+echo "résultat:";
+            foreach ($contextualArray as $key => $value) {
+                echo $key . $value;
+            }
+        }
     }
 
     //function obsolète
