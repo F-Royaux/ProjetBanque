@@ -185,7 +185,7 @@ class Client
             $client->setIdClient();
             csvToArray($array, $fileName);
             researchInArrayAndFindArray($checkForID, $client->getIdClient(), $array);
-        } while (!empty($checkForID) ); //la conditionquand la fonction de recherche trouve rien
+        } while (!empty($checkForID)); //la conditionquand la fonction de recherche trouve rien
 
         $client->setPrenom();
         $client->setNom();
@@ -210,24 +210,24 @@ class Client
         csvToArray($arrayIn, $fileName);
         var_dump($arrayIn);
         $var = researchInArray($value, $arrayIn);
-        var_dump($var);
+        affichageResearch($var);
     }
 
-    public static function researchClientByMoreValue()
+    public static function researchClientByMoreValue(string $value = "")
     {
-        $value = readline("Veuillez saisir n'importe quoi concernant le client': ");
+        if (empty($value)) {
+            $value = readline("Veuillez saisir n'importe quoi concernant le client': ");
+        }
         $fileName = "../client/sauv/client.csv";
         csvToArray($arrayIn, $fileName);
         // var_dump($arrayIn);
         researchInArrayAndFindArray($contextualArray, $value, $arrayIn);
         // var_dump($contextualArray);
-        if (empty($contextualArray)){
+        if (empty($contextualArray)) {
             echo "aucun résultat trouvé";
-        } else  {
-echo "résultat:";
-            foreach ($contextualArray as $key => $value) {
-                echo $key . $value;
-            }
+        } else {
+            echo "résultat: " . "\n";
+            affichageResearch($contextualArray);
         }
     }
 

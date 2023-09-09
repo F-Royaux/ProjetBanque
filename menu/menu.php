@@ -40,7 +40,19 @@ while ($restart == "Oui" || $restart == "oui") {
             Client::researchClientByUniqueValue();
             break;
         case 5:
-            case5();
+            // case5();
+            $input = readline("veuillez saisir la valeur recherchée (Nom du client, Numéro de compte, Identifiant client): ");
+            $check = ctype_digit($input);
+            $input = trim($input);
+            var_dump($input);
+            var_dump($check);
+            echo PHP_EOL;
+            if ($check){
+                // echo "\n"."rentré premierecondition"."\n";
+                comptebancaire::searchCompteId($input);
+            }else{
+                Client::researchClientByMoreValue($input);
+            }
             break;
         case 6:
         case 7:

@@ -17,7 +17,7 @@ function createFile($objet, $fileName, $header)
 }
 
 //la function a christope !!j'ai du enlevé le 3éme argument qui embêtait
-function csvToArray(&$donnees, $filename = '') 
+function csvToArray(&$donnees, $filename = '')
 {
     if (!file_exists($filename) || !is_readable($filename))
         return FALSE;
@@ -73,6 +73,28 @@ function researchInArrayAndFindArray(&$contextualArray, $valeurRecherche, $grosT
     }
     return $contextualArray;
 };
+
+//fonction pour aficher les résultats d'ue recherche
+function affichageResearch($resultResearch)
+{
+    echo "-----------------------------------------------\n";
+    // le if vérifie si $resultResearch est un tableau multidimensionnel ou pas 
+    // ce qui change la logique des foreach
+    if (count($resultResearch) == count($resultResearch, COUNT_RECURSIVE)) {
+        foreach ($resultResearch as $key => $value) {
+            echo ($key . ": " . $value . " |");
+        }
+        echo "\n" ;
+    } else {
+        foreach ($resultResearch as $sousTab) {
+            foreach ($sousTab as $key => $value) {
+                echo ($key . ": " . $value . " | ");
+            }
+            echo "\n";
+        }
+    }
+    echo "-----------------------------------------------\n";
+}
 function saisirDateNaissance()
 {
     $dateValide = false;
@@ -109,15 +131,5 @@ function saisirDateNaissance()
         } else {
             echo "Format invalide. Veuillez utiliser le format JJ/MM/AAAA.\n";
         }
-    }
-}
-function case5() {
-    $input = "veuillez saisir la valeur recherchée (Nom, Numéro de compte, Identifiant client): ";
-    $check = ctype_digit($input);
-    $input = trim($input);
-    if ($check){
-        comptebancaire::searchCompteId();
-    }else{
-        Client::researchClientByMoreValue();
     }
 }

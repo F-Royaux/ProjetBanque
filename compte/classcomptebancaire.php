@@ -248,19 +248,22 @@ class comptebancaire
         return $this;
     }
 
-    public static function searchCompteId()
+    public static function searchCompteId(string $search = "")
     {
-        $fileName = "compte\compte.csv";
-        $search = readline("Saisir l'ID du compte recherché: ");
+        $fileName = "../compte/sauv/compte.csv";
+        if (empty($search)) {
+            $search = readline("Saisir l'ID du compte recherché: ");
+        }
         csvToArray($tabFile, $fileName);
+        // echo "tabfile:";
+        // var_dump ($tabFile);
         $x = researchInArray($search, $tabFile);
-        if ($x == true) {
-            echo ("L'ID du compte à été trouvé, il correspond au compte suivant:\n"); //ici, mettre la ligne du csv correspondant à l'ID recherché
-            foreach ($x as $key => $value) {
-                echo ($key . ": " . $value . "\n");
-            }
-        } else {
+        // var_dump($x);
+        if ($x === false) {
             echo "Cet ID ne correspond à aucun compte...";
+        } else {          
+            echo ("L'ID du compte à été trouvé, il correspond au compte suivant:\n"); //ici, mettre la ligne du csv correspondant à l'ID recherché
+            affichageResearch($x);
         }
         return $x;
     }
